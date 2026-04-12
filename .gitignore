@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE / Editor folders
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific ignores
+# Ignore saved model weights to prevent bloating the repo
+*.pt
+*.pth
+*.weights
+models/saved_agents/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
