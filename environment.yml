@@ -1,0 +1,15 @@
+name: qtradeenv
+channels:
+  - pytorch
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.10
+  - numpy
+  - matplotlib
+  - pygame
+  - pytorch
+  - torchvision
+  - pip
+  - pip:
+      - gymnasium
