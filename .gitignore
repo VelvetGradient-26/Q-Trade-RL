@@ -24,12 +24,5 @@ venv.bak/
 *.swp
 *.swo
 
-# Project specific ignores
-# Ignore saved model weights to prevent bloating the repo
-*.pt
-*.pth
-*.weights
-models/saved_agents/
-
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints
