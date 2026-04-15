@@ -1,24 +1,39 @@
 import gymnasium as gym
 from gymnasium import spaces
 import numpy as np
+import pandas as pd
+import yfinance as yf
 
-class TradingEnv(gym.Env):
+class RealTradingEnv(gym.Env):
     """
-    A custom Algorithmic Swing Trading Environment following the Gymnasium interface.
+    A custom trading environment that uses real-world stock market data via yfinance.
     """
     metadata = {'render_modes': ['human']}
 
-    def __init__(self, data_length=1000, noise_level=0.5):
+    def __init__(self, ticker="BTC-USD", start_date="2018-01-01", end_date="2023-01-01"):
         super().__init__()
         
-        # 1. Generate Synthetic Data (Sine wave + Gaussian noise)
-        # We create a base wave that oscillates, allowing for "buy low, sell high" patterns
-        x = np.linspace(0, 50, data_length)
-        base_trend = np.sin(x) * 10 + 50  # Oscillates around a base price of $50
-        noise = np.random.normal(0, noise_level, data_length)
+        self.ticker = ticker
         
-        self.price_data = base_trend + noise
-        self.data_length = data_length
+        # 1. Fetch Real Data
+        print(f"Fetching historical data for {ticker} from {start_date} to {end_date}...")
+        stock_data = yf.download(ticker, start=start_date, end=end_date, progress=True)
+        
+        if stock_data.empty:
+            raise ValueError(f"No data found for ticker {ticker}.")
+            
+        # We will use the 'Close' price for trading
+        # yfinance sometimes returns a DataFrame with MultiIndex columns (e.g. ('Close', 'AAPL'))
+        # This handles both a single level and multi level columns
+        if isinstance(stock_data.columns, pd.MultiIndex):
+            close_prices = stock_data['Close'][ticker].values
+        else:
+            close_prices = stock_data['Close'].values
+
+        self.price_data = close_prices.astype(np.float32)
+        self.data_length = len(self.price_data)
+        
+        print(f"Loaded {self.data_length} days of data.")
         
         # 2. Define Action Space
         # 0: Hold, 1: Buy, 2: Sell
@@ -38,8 +53,11 @@ class TradingEnv(gym.Env):
         self.buy_price = 0.0
         
         # Hyperparameters for reward shaping
-        self.inactivity_penalty = -0.05  # Penalty for holding cash too long
-        self.invalid_action_penalty = -0.1 # Penalty for illegal moves (e.g., selling when inventory is 0)
+        # Since AAPL prices might be $150, a -0.05 penalty is too small. 
+        # Using a relative penalty or slightly higher absolute one.
+        # But for stability we will keep them as small biases.
+        self.inactivity_penalty = -0.05  
+        self.invalid_action_penalty = -0.1
 
     def reset(self, seed=None, options=None):
         """
@@ -93,7 +111,7 @@ class TradingEnv(gym.Env):
         # Advance the environment
         self.current_step += 1
         
-        # Check if we have reached the end of the synthetic data
+        # Check if we have reached the end of the data
         terminated = self.current_step >= self.data_length - 1
         truncated = False
         
