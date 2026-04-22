@@ -66,7 +66,7 @@ This is the fastest combination. The synthetic environment is a predictable curv
 
 **Example B: Train a DQN Agent on Real Stock Data (e.g., Apple)**
 ```bash
-python main.py --mode train --agent dqn --env real --ticker AAPL --episodes 500
+python main.py --mode train --agent dqn --env real --ticker BTC-USD --episodes 500
 ```
 This runs the PyTorch neural network against real historical AAPL stock prices. Watch the console to see the real-time epsilon decay (exploration rate dropping) as the loss stabilizes.
 
@@ -83,7 +83,7 @@ python main.py --mode test --agent qlearning --env synthetic
 
 **Test the DQN Agent (Real Market):**
 ```bash
-python main.py --mode test --agent dqn --env real --ticker AAPL
+python main.py --mode test --agent dqn --env real --ticker BTC-USD
 ```
 
 When you launch `test` mode, a **Trading AI Desk** window will appear. It visualizes:
