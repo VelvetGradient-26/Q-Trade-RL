@@ -32,6 +32,8 @@ class RealTradingEnv(gym.Env):
 
         self.price_data = close_prices.astype(np.float32)
         self.data_length = len(self.price_data)
+
+        self.dates = stock_data.index.strftime('%Y-%m-%d').tolist()
         
         print(f"Loaded {self.data_length} days of data.")
         
