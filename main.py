@@ -122,6 +122,7 @@ def test(agent_type='qlearning', env_type='synthetic', ticker='BTC-USD', device=
         # Extract data for the visualizer using Gymnasium's unwrapped property
         current_step = env.unwrapped.current_step
         price_data = env.unwrapped.price_data
+        dates = env.unwrapped.dates    
         inventory = next_obs[2]
         
         # Render the Pygame frame
@@ -130,7 +131,8 @@ def test(agent_type='qlearning', env_type='synthetic', ticker='BTC-USD', device=
             current_step=current_step, 
             actions_history=actions_history, 
             total_profit=total_profit, 
-            inventory=inventory
+            inventory=inventory,
+            dates=dates                 
         )
         
         if not is_running:
@@ -140,7 +142,7 @@ def test(agent_type='qlearning', env_type='synthetic', ticker='BTC-USD', device=
         obs = next_obs
         
         # Small delay so the user can actually watch the trades happen
-        time.sleep(0.02)
+        time.sleep(0.2)
         
     print(f"\n[FINISHED] Evaluation finished. Final Realized Profit: ${total_profit:.2f}")
     
