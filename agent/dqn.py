@@ -45,7 +45,7 @@ class DQNAgent:
         self.epsilon_min = epsilon_min
         self.batch_size = batch_size
         
-        # Decide device
+        # device training configuration
         if device is None:
             self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             if torch.backends.mps.is_available():
