@@ -2,13 +2,13 @@
 
 An interactive Reinforcement Learning (RL) project where an AI agent learns to autonomously swing trade on a scrolling price chart. Built with Python, Gymnasium, and Pygame, this project visualizes the learning process of an algorithmic trader attempting to maximize profit by buying low and selling high.
 
-**✨ New in this version:** A fully revamped, professional-grade Pygame visualization platform with dynamic axes, real-time price tracking, area fills, and actual dates drawn directly from historical stock data via `yfinance`.
+** New in this version:** A fully revamped, professional-grade Pygame visualization platform with dynamic axes, real-time price tracking, area fills, and actual dates drawn directly from historical stock data via `yfinance`.
 
 ##  The Concept
 
 The environment generates a synthetic price curve (a sine wave augmented with Gaussian noise) or fetches real stock market historical data. The RL agent observes this scrolling chart with a starting cash balance and must learn the optimal times to enter and exit the market. 
-- **Green Triangles 🟢 (Buy):** Indicate the agent entering a "Long" position and buying the asset.
-- **Red Triangles 🔴 (Sell):** Indicate the agent exiting the position and converting back to cash.
+- **Green Triangles (Buy):** Indicate the agent entering a "Long" position and buying the asset.
+- **Red Triangles (Sell):** Indicate the agent exiting the position and converting back to cash.
 - **Goal:** Maximize total account balance (P&L) while navigating market volatility.
 
 ## ⚙️ Environment Mechanics (Gymnasium)
@@ -26,7 +26,7 @@ The environment generates a synthetic price curve (a sine wave augmented with Ga
   - Negative reward: Realized loss upon a bad "Sell", or a penalty for illegal actions (e.g., selling when you have zero inventory).
   - Step penalty: A small negative penalty for holding cash too long without trading to encourage market participation.
 
-## 🛠️ AI Agents
+## AI Agents
 
 This repository supports two distinct types of reinforcement learning agents:
 
@@ -35,7 +35,7 @@ This repository supports two distinct types of reinforcement learning agents:
 2. **Deep Q-Network - DQN (`agent/dqn.py`):** 
    A deep reinforcement learning agent built with PyTorch using a Neural Network policy, Replay Buffer, and target network. This agent can natively handle continuous observation spaces without manual discretization. It automatically utilizes hardware acceleration (`mps` for Apple Silicon, `cuda` for NVIDIA, or `cpu`).
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 1. **Clone the repository:**
    ```bash
@@ -50,7 +50,7 @@ This repository supports two distinct types of reinforcement learning agents:
    ```
    *(Ensure you have PyTorch installed appropriately for your system. For Mac M-series, install the ARM64 version of Torch).*
 
-## 📖 Comprehensive Instructions
+## Comprehensive Instructions
 
 The central hub for operating the AI is `main.py`. The project naturally splits into two phases: **Training** the agent, and **Testing** (visualizing) its performance.
 
