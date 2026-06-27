@@ -1,4 +1,4 @@
-# Q-Trade: Algorithmic Trading with Reinforcement Learning 📈🤖
+# Q-Trade: Algorithmic Trading with Reinforcement Learning
 
 An interactive Reinforcement Learning (RL) project where an AI agent learns to autonomously swing trade on a scrolling price chart. Built with Python, Gymnasium, and Pygame, this project visualizes the learning process of an algorithmic trader attempting to maximize profit by buying low and selling high.
 
@@ -11,7 +11,7 @@ The environment generates a synthetic price curve (a sine wave augmented with Ga
 - **Red Triangles (Sell):** Indicate the agent exiting the position and converting back to cash.
 - **Goal:** Maximize total account balance (P&L) while navigating market volatility.
 
-## ⚙️ Environment Mechanics (Gymnasium)
+## Environment Mechanics (Gymnasium)
 
 - **Action Space:** `Discrete(3)`
   - `0`: Hold
